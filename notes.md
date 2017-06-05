@@ -1,0 +1,77 @@
+Sanity Checks: all done with integration stacks of length d+10
+- with full leakage (leak = 0)
+    - no delay: 100% accuracy over 30 images
+    - with binary firing
+        - -> 90% accuracy (no delays, no biases)
+        - with biases, accuracy drops to 10% (literally guessing); biases lead to preferred guess that is independent of inputs
+    - without biases --> same performance
+    - With noise
+        - With biases, non binary firing
+            - 10% Noise: 100% accuracy over 20 images
+            - 50% Noise: 65% over 20 images (same for stack of d+10 and d+20)
+            - 100% Noise: 25% over 20 images (same for stack of d+10 and d+20)
+        - without biases, binary firing
+            - 10% Noise: 10% over 20 images (same for stack of d+10 and d+20)
+            - 50% Noise: 10% (at random guessing)
+- implementing leakage:
+    - leak = 0.9
+        - noiseless --> 100% accuracy over 20 images
+        - 10% noise --> 100% accuracy ""
+        - 50% noise --> 65% accuracy over 20
+        - 100% noise --> 20% over 20 images
+    - leak = 0.1
+        - no data yet
+
+Delays
+    - uniform delay = 10
+        - No leakage
+            - noiseless: 100% accuracy over 10 images
+            - 10% Noise: 100% accuracy over 10 images
+            - 50% Noise: 100% accuracy over 10 images
+            - 100% Noise: 90% accuracy over 20 images (time =50); 80% accuracy over 20 (time = 150)
+            - 200% Noise: 40% (time = 50)
+        - leak = 0.1, with biases
+            - 10% noise: 100% accuracy over 10 images (time = 50)   
+            - 50% noise: 100% accuracy over 10 images (time = 50)
+            - 100% Noise: 90% accuracy over 10 images (time = 50)
+            - 200% Noise: 40% accuracy over 10 images (time = 50)
+        - leak = 0.1, no biases
+            - 200% Noise: 50% accuracy over 10 images (time = 50)
+        - leak = 0.3
+            - 200% Noise: 30% accuracy over 10 images
+        - leak = 0.5 with biases
+            - 200% Noise: 30%
+        - leak = 0.9, no biases
+            - 100% Noise: 0% accuracy over 10 images (time = 150)
+        - leak = 0.9, with biases
+            - 10% Noise: 0% accuracy over 10 images
+            - 100% Noise: 0% accuracy over 10 images (time = 50)
+    - uniform delay = 10, input layer delay = 0
+        - leak = 0.3, with biases
+            - 200% Noise: 30% accuracy over 10 images
+        - leak = 0.9
+            - 200% Noise: 0%
+    - Random Delay ([1,10])
+        - leak = 0.5, no biases
+            - 200% Noise: 70% accuracy over 10 images (time = 50)
+    - Random Delay ([1, 20])
+        - leak = 0.5, no biases
+            - 200% Noise: 50% accuracy over 10 images (time = 50)
+    - Random Delay ([1, 5])
+        - leak = 0.5, no biases
+            - 200% Noise: 90% accuracy over 10 images (time = 50)
+            - 1000% Noise: 60% accuracy over 10 images (time = 50)
+    - Optimized delay (2-4-inf)
+        - leak = 0.9, with biases
+            - 200% Noise: 0%
+        - leak = 0.9, no biases
+            - 200% Noise: 0%
+        - leak = 0.1, no biases
+            - 200% Noise: 60% accuracy over 10 images (time = 50)
+        - leak = 0.5, no biases
+            - 200% Noise: 70% accuracy over 10 images (time = 50)
+    - Optimized delay (3-9-Inf)
+        - leak = 0.1, no biases
+            - 200% Noise: 50% accuracy over 10 images (time = 50); 40% accuracy over 10 images (time = 108)
+
+    - delays appear to be acting like a refractory period with leak = 0;
